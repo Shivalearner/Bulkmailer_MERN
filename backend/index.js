@@ -2,18 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://bulkmailer-mern.vercel.app/",
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://127.0.0.1:27017/passkey")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Database Connected"))
-  .catch(() => console.log("Failed to connect to Database"));
+  .catch((err) => console.log("DB Error", err));
 
 // Model to access `bulkmailer` collection
 const Credential = mongoose.model("credential", {}, "bulkmailer");
@@ -51,6 +57,8 @@ app.post("/sendemail", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
+

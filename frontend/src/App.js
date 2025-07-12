@@ -41,7 +41,12 @@ function App() {
 
     setstatus(true);
     axios
-      .post("http://localhost:5000/sendemail", { msg, subject, emailList })
+      .post(`${process.env.REACT_APP_BACKEND_URL}/sendemail`, {
+        msg,
+        subject,
+        emailList,
+      })
+
       .then((res) => {
         if (res.data === "Success") {
           alert("Email Sent Successfully ✅");
@@ -64,12 +69,15 @@ function App() {
           ✉️ <span>BulkMailer</span>
         </h1>
         <p className="text-center text-gray-600 text-md leading-relaxed">
-          🚀 Instantly send Multiple emails using an Excel sheet. Just upload 📄, type 📩 and hit send 💥.
+          🚀 Instantly send Multiple emails using an Excel sheet. Just upload
+          📄, type 📩 and hit send 💥.
         </p>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm text-blue-700 font-semibold mb-1">📌 Subject</label>
+            <label className="block text-sm text-blue-700 font-semibold mb-1">
+              📌 Subject
+            </label>
             <input
               type="text"
               value={subject}
@@ -80,7 +88,9 @@ function App() {
           </div>
 
           <div>
-            <label className="block text-sm text-blue-700 font-semibold mb-1">📩 Message</label>
+            <label className="block text-sm text-blue-700 font-semibold mb-1">
+              📩 Message
+            </label>
             <textarea
               value={msg}
               onChange={handlemsg}
@@ -90,7 +100,9 @@ function App() {
           </div>
 
           <div>
-            <label className="block text-sm text-blue-700 font-semibold mb-1">📤 Upload Excel File (.xlsx)</label>
+            <label className="block text-sm text-blue-700 font-semibold mb-1">
+              📤 Upload Excel File (.xlsx)
+            </label>
             <input
               type="file"
               onChange={handlefile}
@@ -100,7 +112,8 @@ function App() {
           </div>
 
           <p className="text-blue-600 font-medium">
-            📧 Emails detected: <span className="font-bold text-blue-800">{emailList.length}</span>
+            📧 Emails detected:{" "}
+            <span className="font-bold text-blue-800">{emailList.length}</span>
           </p>
 
           <button
