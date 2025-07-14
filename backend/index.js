@@ -10,9 +10,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: "https://bulkmailer-mern.vercel.app",
+  origin: [
+    "https://bulkmailer-mern.vercel.app",
+    "https://bulkmailer-mern-c26jq5654-shivas-projects-a760db6f.vercel.app"
+  ],
   methods: ["POST", "GET"]
 }));
+
 
 // Connect to MongoDB
 mongoose
