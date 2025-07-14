@@ -40,6 +40,8 @@ function App() {
     }
 
     setstatus(true);
+    console.log(process.env.REACT_APP_API_URL); // Should log the correct Render backend URL
+
     axios
       .post(`${process.env.REACT_APP_API_URL}/sendemail`, { msg, subject, emailList })
       .then((res) => {
