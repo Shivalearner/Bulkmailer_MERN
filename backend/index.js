@@ -4,19 +4,21 @@ const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 require("dotenv").config(); // At the very top
 
-
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: [
-    "https://bulkmailer-mern.vercel.app",
-    "https://bulkmailer-mern-c26jq5654-shivas-projects-a760db6f.vercel.app"
-  ],
-  methods: ["POST", "GET"]
-}));
-
+app.use(
+  cors({
+    origin: [
+      "https://bulkmailer-mern.vercel.app",
+      "https://bulkmailer-mern-c26jq5654-shivas-projects-a760db6f.vercel.app",
+    ],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
+const cors = require("cors");
 
 // Connect to MongoDB
 mongoose
@@ -41,7 +43,7 @@ app.post("/sendemail", async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: { user, pass }
+      auth: { user, pass },
     });
 
     for (let i = 0; i < emailList.length; i++) {
@@ -49,7 +51,7 @@ app.post("/sendemail", async (req, res) => {
         from: user,
         to: emailList[i],
         subject,
-        text: msg
+        text: msg,
       });
     }
 
