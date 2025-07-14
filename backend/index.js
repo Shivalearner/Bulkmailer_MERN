@@ -14,11 +14,10 @@ app.use(
       "https://bulkmailer-mern.vercel.app",
       "https://bulkmailer-mern-c26jq5654-shivas-projects-a760db6f.vercel.app",
     ],
-    methods: ["POST", "GET"],
-    credentials: true,
+    methods: ["POST", "GET"]
   })
 );
-const cors = require("cors");
+
 
 // Connect to MongoDB
 mongoose
